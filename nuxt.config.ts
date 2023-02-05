@@ -68,12 +68,12 @@ export default defineNuxtConfig({
           content: "black-translucent",
         },
         // open graph social image
-        { property: "og:title", content: "Nuxt Tailwind PWA" },
+        { property: "og:title", content: "Hacker News" },
         {
           property: "og:description",
-          content: "A Nuxt.js project with Tailwind CSS and PWA",
+          content: "A Simple hacker news client",
         },
-        { property: "og:site_name", content: "Nuxt Tailwind PWA" },
+        { property: "og:site_name", content: "Hacker News" },
         { property: "msapplication-TileColor", content: "#da532c" },
         {
           name: "theme-color",
@@ -90,9 +90,9 @@ export default defineNuxtConfig({
   },
   pwa: {
     manifest: {
-      name: "Nuxt Tailwind PWA",
-      short_name: "nuxt-tailwind-pwa",
-      description: "A Nuxt.js project with Tailwind CSS and PWA",
+      name: "Hacker News",
+      short_name: "hn",
+      description: "A Simple hacker news client",
       background_color: "hsl(284, 20.0%, 9.6%)",
       theme_color: "hsl(284, 20.0%, 9.6%)",
       icons: [
