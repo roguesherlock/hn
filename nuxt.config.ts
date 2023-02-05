@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     keepalive: true,
     head: {
       htmlAttrs: {
-        class: "antialiased",
+        class: "dark antialiased",
       },
       // Prevent arbitrary zooming on mobile devices
       viewport:
@@ -89,6 +89,10 @@ export default defineNuxtConfig({
     },
   },
   pwa: {
+    meta: {
+      title: "Hacker News",
+      description: "A Simple hacker news client",
+    },
     manifest: {
       name: "Hacker News",
       short_name: "hn",
