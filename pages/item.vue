@@ -5,7 +5,7 @@ const router = useRouter()
 const route = useRoute()
 const itemId = computed(() => Number(route.query?.id))
 
-const { data: item } = useAsyncData(
+const { data: item, pending } = useAsyncData(
   `hn-item-${itemId.value}`,
   async () => {
     const response = await fetch(
@@ -77,28 +77,38 @@ onDeactivated(() => {
       </button>
     </div>
   </Teleport>
-  <div id="item" class="mt-[52px]" :key="itemId">
-    <StoryCard
-      v-if="story && story.type == 'story'"
-      as="div"
-      :data-id="`story-${itemId}`"
-      :story="story"
-      :static="true"
-      :big="true"
-    />
-    <Comment
-      v-else-if="item && item.type == 'comment'"
-      :comment="item"
-      as="div"
-      :render-kids="false"
-    />
-    <ul class="mt-1 grid gap-1 pb-20">
-      <Comment
-        v-for="i in item?.children"
-        :key="i.id"
-        :comment="i"
-        class="min-w-full bg-purple-2 dark:bg-purpleDark-2"
+  <div id="item" class="mt-[52px]">
+    <template v-if="item && !pending">
+      <StoryCard
+        v-if="story && story.type == 'story'"
+        as="div"
+        :data-id="`story-${itemId}`"
+        :story="story"
+        :static="true"
+        :big="true"
       />
-    </ul>
+      <Comment
+        v-else-if="item && item.type == 'comment'"
+        :comment="item"
+        as="div"
+        :render-kids="false"
+      />
+      <ul class="mt-1 grid gap-1 pb-20">
+        <Comment
+          v-for="i in item?.children"
+          :key="i.id"
+          :comment="i"
+          class="min-w-full bg-purple-2 dark:bg-purpleDark-2"
+        />
+      </ul>
+    </template>
+    <template v-else>
+      <StoryPreviewSkeleton />
+      <ul class="mt-1 grid gap-1 pb-20">
+        <template v-for="i in 10">
+          <CommentSkeleton />
+        </template>
+      </ul>
+    </template>
   </div>
 </template>
