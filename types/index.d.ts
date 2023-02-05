@@ -59,3 +59,16 @@ export type HNUser = {
   about: string
   submitted: number[]
 }
+
+export type HNAlgoliaItem = {
+  id: number
+  created_at: string
+  title: string
+  url: string
+  author: string
+  text: string | null
+  points: number
+  parent_id: number | null
+  children: HNAlgoliaItem[]
+  type: "job" | "story" | "comment" | "poll" | "pollopt"
+}

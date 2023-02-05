@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query"
-
 const storyTypeMap = {
   top: "topstories",
   new: "newstories",
@@ -24,23 +22,23 @@ const currentStoryId = computed(() => {
   return Number(route.params.ids?.[0] ?? 0)
 })
 
-const { data, suspense } = useQuery({
-  queryKey: [storyType],
-  queryFn: async () => {
+const { data } = useAsyncData(
+  storyType.value,
+  async () => {
     try {
       const response = await fetch(
         `https://hacker-news.firebaseio.com/v0/${storyType.value}.json`
       )
-      // we only care about first 200
-      return ((await response.json()) as number[]).slice(0, 200)
+      // we only care about first 50
+      return ((await response.json()) as number[]).slice(0, 50)
     } catch (e) {
       return null
     }
   },
-  staleTime: import.meta.env?.VITE_TOP_STALE_TIME ?? 1000 * 60 * 5, // 5 minutes
-})
-
-onServerPrefetch(async () => await suspense())
+  {
+    watch: [storyType],
+  }
+)
 </script>
 
 <template>
