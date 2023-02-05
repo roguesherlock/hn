@@ -1,7 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require("tailwindcss/defaultTheme.js")
 module.exports = {
-  content: ["./src/**/*.{vue,js,ts,css,html}", "./index.html"],
+  content: [
+    `./components/**/*.{vue,js,ts}`,
+    `./layouts/**/*.vue`,
+    `./pages/**/*.vue`,
+    `./composables/**/*.{js,ts}`,
+    `./plugins/**/*.{js,ts}`,
+    `./nuxt.config.{js,ts}`,
+    `./App.{js,ts,vue}`,
+    `./app.{js,ts,vue}`,
+    `./Error.{js,ts,vue}`,
+    `./error.{js,ts,vue}`,
+    `./*.{cjs,mjs,js,ts,vue}`,
+    `./nuxt.config.ts`,
+  ],
   darkMode: "class",
   theme: {
     extend: {
