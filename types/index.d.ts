@@ -1,6 +1,7 @@
 export type DateType = string | Date | number
 export type Nullable<T> = T | null
 export type Dict = Record<strig, any>
+export type MaybeRef<T> = T | import("vue").Ref<T>
 
 // Hacker News Item
 // id -	The item's unique id.

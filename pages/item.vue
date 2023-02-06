@@ -13,11 +13,7 @@ const router = useRouter()
 const route = useRoute()
 const itemId = computed(() => Number(route.query?.id))
 
-const {
-  data: item,
-  isLoading,
-  suspense,
-} = useQuery({
+const { data: item, isLoading } = useQuery({
   // @ts-ignore
   queryKey: ["hn-item", itemId],
   queryFn: async () => {
@@ -49,6 +45,32 @@ const story = computed(() => {
     url: item.value.url,
   } as unknown as HNItem<"story">
 })
+
+const shareTitle = computed(() => {
+  if (!item.value) return ""
+  if (item.value.type === "story") {
+    return item.value.title
+  } else if (item.value.type === "comment") {
+    return `url to ${item.value.author}'s comment on HN item ${item.value.parent}.`
+  }
+  return ""
+})
+
+const shareUrl = computed(() => {
+  if (!item.value) return ""
+  if (item.value.type === "story") {
+    let url = item.value.url
+    if (!url) {
+      url = window.location.href
+    }
+    return url
+  } else if (item.value.type === "comment") {
+    return window.location.href
+  }
+  return ""
+})
+
+const share = useShare({ title: shareTitle, url: shareUrl })
 
 const back = () => {
   router.go(-1)
@@ -83,7 +105,7 @@ onDeactivated(() => {
       <p class="mx-auto">
         <span v-show="true"> Comments </span>
       </p>
-      <button class="ml-auto mr-1" aria-label="share story">
+      <button class="ml-auto mr-1" aria-label="share story" @click="share">
         <Icon name="radix-icons:share-2" class="h-5 w-5" aria-hidden="true" />
       </button>
     </div>
