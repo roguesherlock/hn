@@ -19,6 +19,7 @@ watch(cntrlI, (value) => {
 
 <template>
   <main class="relative md:flex md:flex-row">
+    <ToastProvider />
     <AppHeader />
     <div class="mx-auto max-w-xl flex-grow basis-full">
       <NuxtLayout>

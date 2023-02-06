@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "nuxt-headlessui",
     "@kevinmarrec/nuxt-pwa",
+    "@pinia/nuxt",
   ],
   css: ["@fontsource/inter/variable.css"],
   typescript: {
