@@ -10,8 +10,8 @@ import {
 } from "@tanstack/vue-query"
 // Nuxt 3 app aliases
 import { useState } from "#app"
-// import { persistQueryClient } from "@tanstack/query-persist-client-core"
-// import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister"
+import { persistQueryClient } from "@tanstack/query-persist-client-core"
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister"
 
 export default defineNuxtPlugin((nuxt) => {
   const vueQueryState = useState<DehydratedState | null>("vue-query")
@@ -28,25 +28,25 @@ export default defineNuxtPlugin((nuxt) => {
   })
   const options: VueQueryPluginOptions = {
     queryClient,
-    // clientPersister: (queryClient) => {
-    //   return persistQueryClient({
-    //     queryClient,
-    //     persister: createSyncStoragePersister({ storage: localStorage }),
-    //   })
-    // },
+    clientPersister: (queryClient) => {
+      return persistQueryClient({
+        queryClient,
+        persister: createSyncStoragePersister({ storage: localStorage }),
+      })
+    },
   }
 
   nuxt.vueApp.use(VueQueryPlugin, options)
 
-  if (process.server) {
-    nuxt.hooks.hook("app:rendered", () => {
-      vueQueryState.value = dehydrate(queryClient)
-    })
-  }
+  // if (process.server) {
+  //   nuxt.hooks.hook("app:rendered", () => {
+  //     vueQueryState.value = dehydrate(queryClient)
+  //   })
+  // }
 
-  if (process.client) {
-    nuxt.hooks.hook("app:created", () => {
-      hydrate(queryClient, vueQueryState.value)
-    })
-  }
+  // if (process.client) {
+  //   nuxt.hooks.hook("app:created", () => {
+  //     hydrate(queryClient, vueQueryState.value)
+  //   })
+  // }
 })
