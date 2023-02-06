@@ -1,14 +1,13 @@
 <script setup lang="ts">
-const storyTypeMap = {
-  top: "topstories",
-  new: "newstories",
-  best: "beststories",
-  ask: "askstories",
-  show: "showstories",
-  jobs: "jobstories",
-}
-
 const type = computed(() => useRoute().params.type as string)
+
+definePageMeta({
+  middleware: (to) => {
+    if (!Object.keys(storyTypeMap).includes(to.params?.type as string)) {
+      return navigateTo("/top")
+    }
+  },
+})
 
 const storyType = computed(() => {
   if (Object.keys(storyTypeMap).includes(type.value)) {
