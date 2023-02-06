@@ -16,9 +16,24 @@ const props = withDefaults(defineProps<Props>(), {
 const url = computed(() => {
   return new URL(props.story?.url ?? "")
 })
-const formattedTime = computed(
-  () => (props.story && formatDateWithTime(props.story.time * 1000)) ?? ""
-)
+const formattedTime = computed(() => {
+  if (props.story) {
+    if (typeof props.story.time === "number") {
+      formatDateWithTime(props.story.time * 1000)
+    } else {
+      return formatDateWithTime(props.story.time)
+    }
+  }
+})
+const shortTime = computed(() => {
+  if (props.story) {
+    if (typeof props.story.time === "number") {
+      return formatDistanceToNow(props.story.time * 1000)
+    } else {
+      return formatDistanceToNow(props.story.time)
+    }
+  }
+})
 </script>
 <template>
   <component v-if="story && !story.dead" :is="as" class="group relative">
@@ -119,7 +134,7 @@ const formattedTime = computed(
           </dt>
           <dd>
             <time :datetime="formattedTime" :title="formattedTime">
-              {{ formatDistanceToNow(story.time * 1000) }}
+              {{ shortTime }}
             </time>
           </dd>
         </div>
