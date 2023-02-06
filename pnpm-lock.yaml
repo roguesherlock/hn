@@ -3,6 +3,8 @@ lockfileVersion: 5.4
 specifiers:
   '@fontsource/inter': ^4.5.15
   '@headlessui/tailwindcss': ^0.1.2
+  '@iconify-icons/heroicons': ^1.2.7
+  '@iconify-icons/radix-icons': ^1.2.8
   '@kevinmarrec/nuxt-pwa': ^0.16.0
   '@nuxt/eslint-config': ^0.1.1
   '@nuxtjs/tailwindcss': ^6.3.0
@@ -29,6 +31,8 @@ dependencies:
 
 devDependencies:
   '@headlessui/tailwindcss': 0.1.2
+  '@iconify-icons/heroicons': 1.2.7
+  '@iconify-icons/radix-icons': 1.2.8
   '@kevinmarrec/nuxt-pwa': 0.16.0
   '@nuxt/eslint-config': 0.1.1_eslint@8.33.0
   '@nuxtjs/tailwindcss': 6.3.1
@@ -842,6 +846,18 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@iconify-icons/heroicons/1.2.7:
+    resolution: {integrity: sha512-3CcKFVHV3MX0xTHxho1X77ZbZG3jcpTTRAXSjP+ZcL4i6JLraM+qMKe0uDEjZHIEfNZ84gjGaSLbBCZi2WpnFw==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-icons/radix-icons/1.2.8:
+    resolution: {integrity: sha512-bZqRIbeqe6yNSLPgcQOyOl86C2P/apaY9Dq/BddWxitN8olbTp2MLuDJenNF+wxbQGgKkQFfm3vb6Z+4Nbhk+g==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify/types/2.0.0:

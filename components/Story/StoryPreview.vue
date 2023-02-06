@@ -17,9 +17,9 @@ const props = withDefaults(defineProps<Props>(), {
   big: false,
 })
 
-const { data: story, pending } = useAsyncData(
-  `story-${props.id}`,
-  async () => {
+const { data: story, isLoading } = useQuery({
+  queryKey: ["story", props.id],
+  queryFn: async () => {
     try {
       const response = await fetch(
         `https://hacker-news.firebaseio.com/v0/item/${props.id}.json`
@@ -29,13 +29,10 @@ const { data: story, pending } = useAsyncData(
       return null
     }
   },
-  {
-    watch: [() => props.id],
-  }
-)
+})
 </script>
 <template>
-  <template v-if="pending">
+  <template v-if="isLoading">
     <StoryPreviewSkeleton />
   </template>
   <template v-else-if="story">

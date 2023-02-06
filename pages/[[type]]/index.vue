@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useQuery } from "@tanstack/vue-query"
+
 const type = computed(() => useRoute().params.type as string)
 
 definePageMeta({
@@ -21,23 +23,23 @@ const currentStoryId = computed(() => {
   return Number(route.params.ids?.[0] ?? 0)
 })
 
-const { data } = useAsyncData(
-  storyType.value,
-  async () => {
+const { data, suspense } = useQuery({
+  // @ts-ignore
+  queryKey: [storyType],
+  queryFn: async () => {
     try {
       const response = await fetch(
         `https://hacker-news.firebaseio.com/v0/${storyType.value}.json`
       )
-      // we only care about first 50
-      return ((await response.json()) as number[]).slice(0, 50)
+      // we only care about first 200
+      return ((await response.json()) as number[]).slice(0, 200)
     } catch (e) {
       return null
     }
   },
-  {
-    watch: [storyType],
-  }
-)
+  suspense: true,
+})
+await suspense()
 </script>
 
 <template>

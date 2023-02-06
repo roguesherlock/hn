@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.1.2",
+    "@iconify-icons/heroicons": "^1.2.7",
+    "@iconify-icons/radix-icons": "^1.2.8",
     "@kevinmarrec/nuxt-pwa": "^0.16.0",
     "@nuxt/eslint-config": "^0.1.1",
     "@nuxtjs/tailwindcss": "^6.3.0",

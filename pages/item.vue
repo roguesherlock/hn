@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { HNItem, HNAlgoliaItem } from "@/types"
+import { useQuery } from "@tanstack/vue-query"
 
 definePageMeta({
   validate: async (route) => {
@@ -12,21 +13,25 @@ const router = useRouter()
 const route = useRoute()
 const itemId = computed(() => Number(route.query?.id))
 
-const { data: item, pending } = useAsyncData(
-  `hn-item-${itemId.value}`,
-  async () => {
-    const response = await fetch(
-      `https://hn.algolia.com/api/v1/items/${itemId.value}`
-    )
-    return (await response.json()) as HNAlgoliaItem
+const {
+  data: item,
+  isLoading,
+  suspense,
+} = useQuery({
+  // @ts-ignore
+  queryKey: ["hn-item", itemId],
+  queryFn: async () => {
+    try {
+      const response = await fetch(
+        `https://hn.algolia.com/api/v1/items/${itemId.value}`
+      )
+      return (await response.json()) as HNAlgoliaItem
+    } catch (e) {
+      return null
+    }
   },
-  {
-    watch: [isHydrated, itemId],
-    immediate: isHydrated.value,
-    default: () => shallowRef(),
-  }
-)
-watch(isHydrated, () => console.log("isHydrated", isHydrated.value))
+  enabled: isHydrated,
+})
 
 const story = computed(() => {
   if (!item.value) return null
@@ -85,7 +90,7 @@ onDeactivated(() => {
     </div>
   </Teleport>
   <div id="item" class="mt-[52px]">
-    <template v-if="item && !pending">
+    <template v-if="item && !isLoading">
       <StoryCard
         v-if="story && story.type == 'story'"
         as="div"
