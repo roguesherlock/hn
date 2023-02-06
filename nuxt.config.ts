@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     "nuxt-headlessui",
     "@kevinmarrec/nuxt-pwa",
     "@pinia/nuxt",
+    "@vueuse/nuxt",
   ],
   css: ["@fontsource/inter/variable.css"],
   typescript: {
