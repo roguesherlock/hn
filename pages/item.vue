@@ -3,7 +3,7 @@ import type { HNItem, HNAlgoliaItem } from "@/types"
 import { useQuery } from "@tanstack/vue-query"
 
 definePageMeta({
-  validate: async (route) => {
+  validate: async route => {
     // Check if the id is made up of digits
     return /^\d+$/.test((route.query?.id as string) ?? "")
   },
@@ -82,6 +82,12 @@ onActivated(() => {
 onDeactivated(() => {
   routeActive.value = false
 })
+
+const scrollEl = ref<HTMLElement | null>(null)
+const enabled = computed(() => {
+  return routeActive.value && !isLoading.value
+})
+const { scrollToNext } = useNavigation({ scrollEl, enabled })
 </script>
 <template>
   <Teleport v-if="itemId && routeActive" to="body">
@@ -126,7 +132,7 @@ onDeactivated(() => {
         as="div"
         :render-kids="false"
       />
-      <ul class="mt-1 grid gap-1 pb-20">
+      <ul ref="scrollEl" class="mt-1 grid gap-1 pb-20">
         <Comment
           v-for="i in item?.children"
           :key="i.id"
@@ -144,4 +150,15 @@ onDeactivated(() => {
       </ul>
     </template>
   </div>
+  <button
+    class="fixed right-8 bottom-8 grid cursor-default place-items-center rounded-full bg-purple-3 p-2 ring-purple-7 ring-offset-purple-1 transition hover:bg-purple-4 focus:outline-none focus:ring focus:ring-offset-1 active:bg-purple-5 dark:bg-purpleDark-3 dark:ring-purpleDark-7 dark:ring-offset-purpleDark-1 dark:hover:bg-purpleDark-4 dark:active:bg-purpleDark-5 md:right-5 md:bottom-5"
+    aria-label="scroll to next top level reply"
+    @click="scrollToNext"
+  >
+    <Icon
+      name="heroicons:chevron-down-20-solid"
+      class="h-5 w-5"
+      aria-hidden="true"
+    />
+  </button>
 </template>
