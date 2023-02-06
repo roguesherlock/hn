@@ -51,7 +51,7 @@ const shareTitle = computed(() => {
   if (item.value.type === "story") {
     return item.value.title
   } else if (item.value.type === "comment") {
-    return `url to ${item.value.author}'s comment on HN item ${item.value.parent}.`
+    return `url to ${item.value.author}'s comment on HN item ${item.value.parent_id}.`
   }
   return ""
 })
