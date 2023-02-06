@@ -23,7 +23,7 @@ const links = computed(() =>
     }
   })
 )
-const isHome = computed(() => route.name === "hn")
+const isHome = computed(() => route.params.type !== "item")
 </script>
 <template>
   <nav class="hidden flex-1 justify-end md:relative md:flex">
