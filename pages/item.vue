@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import type { HNItem, HNAlgoliaItem } from "@/types"
 
+definePageMeta({
+  validate: async (route) => {
+    // Check if the id is made up of digits
+    return /^\d+$/.test((route.query?.id as string) ?? "")
+  },
+})
+
 const router = useRouter()
 const route = useRoute()
 const itemId = computed(() => Number(route.query?.id))
