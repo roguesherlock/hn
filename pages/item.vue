@@ -30,7 +30,6 @@ const {
       return null
     }
   },
-  enabled: isHydrated,
 })
 
 const story = computed(() => {
