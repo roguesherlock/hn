@@ -5,6 +5,7 @@ export default {
 </script>
 <script setup lang="ts">
 import type { HNAlgoliaItem } from "@/types"
+import { ComponentPublicInstance } from "vue"
 
 interface Props {
   as?: string
@@ -49,6 +50,31 @@ const shouldOpen = computed(() => {
 const formattedTime = computed(
   () => (props.comment && formatDateWithTime(props.comment.created_at)) ?? ""
 )
+
+const el = ref<ComponentPublicInstance>()
+type HandleCloseOptions = {
+  close: () => void
+  e?: Event
+  conditionallyScroll?: boolean
+}
+// if conditionallyScroll is true, only collapse if the current element's head is off screen
+const handleClose = ({ close, e, conditionallyScroll }: HandleCloseOptions) => {
+  //@ts-ignore
+  const type = e?.target?.tagName?.toLowerCase?.()
+  if (type === "button" || type === "a") return
+  const top = el.value?.$el.getBoundingClientRect().top
+  close()
+  nextTick(() => {
+    const scroll = conditionallyScroll ? top < 0 : true
+    if (scroll) {
+      const top = el.value?.$el.getBoundingClientRect().top
+      window.scrollTo({
+        top: top + window.scrollY - 52,
+        behavior: "smooth",
+      })
+    }
+  })
+}
 </script>
 <template>
   <template v-if="comment">
@@ -126,6 +152,12 @@ const formattedTime = computed(
           <div
             class="prose pr-4 dark:prose-invert sm:prose-lg"
             v-html="comment.text"
+            @click="
+              e =>
+                isMobileScreen
+                  ? handleClose({ close, e, conditionallyScroll: true })
+                  : null
+            "
           ></div>
           <ul
             v-if="renderKids && comment.children && comment.children.length > 0"
