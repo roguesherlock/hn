@@ -12,7 +12,7 @@ definePageMeta({
 const route = useRoute()
 const userId = computed(() => route.query?.id)
 
-const { data: user, suspense } = useQuery({
+const { data: user, isLoading } = useQuery({
   // @ts-ignore
   queryKey: ["hn-user", userId],
   queryFn: async () => {
@@ -23,13 +23,10 @@ const { data: user, suspense } = useQuery({
   },
   staleTime: import.meta.env?.VITE_STORY_STALE_TIME ?? 1000 * 60 * 10, // 10 minutes
 })
-
-await suspense()
 </script>
 <template>
   <Teleport to="body">
     <div
-      v-if="user"
       class="fixed inset-x-0 top-0 z-20 mx-auto grid h-12 w-full max-w-xl grid-cols-3 items-center border-b border-purple-6 bg-purple-3/80 px-4 py-2 font-medium backdrop-blur-xl transition dark:border-purpleDark-6 dark:bg-purpleDark-3/80 sm:px-4 sm:py-3"
     >
       <button class="flex items-center font-medium" @click="$router.go(-1)">
@@ -40,10 +37,16 @@ await suspense()
         />
         <span class="truncate text-left"> back </span>
       </button>
-      <p class="mx-auto">{{ user!.id }}</p>
+      <p class="mx-auto">{{ user?.id }}</p>
     </div>
   </Teleport>
   <div class="mt-[52px]">
-    <UserCard v-if="user" as="div" :data-id="`user-${userId}`" :user="user" />
+    <CommentSkeleton v-if="isLoading" />
+    <UserCard
+      v-else-if="user"
+      as="div"
+      :data-id="`user-${userId}`"
+      :user="user"
+    />
   </div>
 </template>
