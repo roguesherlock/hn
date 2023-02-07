@@ -90,7 +90,9 @@ const scrollEl = ref<HTMLElement | null>(null)
 const enabled = computed(() => {
   return componentIsActive.value && !isLoading.value
 })
-const { scrollToNext } = useNavigation({ scrollEl, enabled })
+const { state } = useScope(() => useNavigation({ scrollEl }), {
+  enabled,
+})
 
 const { scrollPosition, viewed } = useItemState(item)
 onActivated(() => {
@@ -178,7 +180,7 @@ const filteredComments = computed(
   <button
     class="fixed right-8 bottom-8 grid cursor-default place-items-center rounded-full bg-purple-3 p-2 ring-purple-7 ring-offset-purple-1 transition hover:bg-purple-4 focus:outline-none focus:ring focus:ring-offset-1 active:bg-purple-5 dark:bg-purpleDark-3 dark:ring-purpleDark-7 dark:ring-offset-purpleDark-1 dark:hover:bg-purpleDark-4 dark:active:bg-purpleDark-5 md:right-5 md:bottom-5"
     aria-label="scroll to next top level reply"
-    @click="scrollToNext"
+    @click="state?.scrollToNext"
   >
     <Icon
       name="heroicons:chevron-down-20-solid"

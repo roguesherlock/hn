@@ -3,10 +3,9 @@ import { useMagicKeys } from "@vueuse/core"
 
 export type useNavigationOptions = {
   scrollEl: Ref<HTMLElement | null>
-  enabled: Ref<boolean>
 }
 
-export const useNavigation = ({ scrollEl, enabled }: useNavigationOptions) => {
+export const useNavigation = ({ scrollEl }: useNavigationOptions) => {
   const scrolled = ref<Set<HTMLElement>>(new Set())
   const sortedScrolled = computed(() =>
     Array.from(scrolled.value).sort((a, b) => {
@@ -55,33 +54,15 @@ export const useNavigation = ({ scrollEl, enabled }: useNavigationOptions) => {
     }
   }
 
-  onDeactivated(() => {
+  const unObserveItems = () => {
     observer.value?.takeRecords()?.forEach(record => {
       observer.value?.unobserve(record.target)
       scrolled.value.delete(record.target as HTMLElement)
     })
-  })
-  onUnmounted(() => {
-    observer.value?.disconnect()
-  })
+  }
 
-  watch(
-    enabled,
-    value => {
-      if (value) observeItems()
-    },
-    {
-      immediate: true,
-    }
-  )
-
-  watch(j, value => {
-    if (value) scrollToNext()
-  })
-
-  watch(k, value => {
-    if (value) scrollToPrev()
-  })
+  nextTick(() => observeItems())
+  onScopeDispose(() => unObserveItems())
 
   const scrollToPrev = () => {
     let didScroll = false
@@ -121,12 +102,15 @@ export const useNavigation = ({ scrollEl, enabled }: useNavigationOptions) => {
       } else {
         next = sortedScrolled.value[sortedScrolled.value.length - 1]
       }
-      while (next && next.getBoundingClientRect().top < 52) {
+      while (next && next.getBoundingClientRect().top <= 52) {
         next = next.nextElementSibling as HTMLElement
       }
       next && scrollIntoView(next)
     }
   }
+
+  whenever(j, scrollToNext)
+  whenever(k, scrollToPrev)
 
   return {
     scrollToPrev,
