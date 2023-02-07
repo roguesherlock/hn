@@ -13,6 +13,8 @@ const props = withDefaults(defineProps<Props>(), {
   big: false,
 })
 
+const { viewed } = useItemState(toRef(props, "story"))
+
 const url = computed(() => {
   return new URL(props.story?.url ?? "")
 })
@@ -42,8 +44,11 @@ const shortTime = computed(() => {
       :class="{
         'p-4': big,
         'px-4 py-2': !big,
-        'bg-purple-3 dark:bg-purpleDark-3': static,
-        'bg-purple-3 group-focus-within:bg-purple-4 group-hover:bg-purple-4 dark:bg-purpleDark-3 dark:group-focus-within:bg-purpleDark-4 dark:group-hover:bg-purpleDark-4': true,
+        'bg-purple-3 dark:bg-purpleDark-3': !viewed || static,
+        'bg-purple-2 group-focus-within:bg-purple-3 group-hover:bg-purple-3 dark:bg-purpleDark-2 dark:group-focus-within:bg-purpleDark-3 dark:group-hover:bg-purpleDark-3':
+          viewed && !static,
+        'group-focus-within:bg-purple-4 group-hover:bg-purple-4 dark:group-focus-within:bg-purpleDark-4 dark:group-hover:bg-purpleDark-4':
+          !viewed && !static,
         'group-focus-within:ring-1 group-focus-within:ring-purple-6 group-hover:ring-1 group-hover:ring-purple-6 dark:group-focus-within:ring-purpleDark-6 dark:group-hover:ring-purpleDark-6':
           !static,
       }"

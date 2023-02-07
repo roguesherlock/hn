@@ -88,6 +88,21 @@ const enabled = computed(() => {
   return routeActive.value && !isLoading.value
 })
 const { scrollToNext } = useNavigation({ scrollEl, enabled })
+
+const { scrollPosition, viewed } = useItemState(item)
+onActivated(() => {
+  nextTick(() => {
+    if (scrollPosition.value) {
+      setTimeout(() => {
+        window.scrollTo({ top: scrollPosition.value, behavior: "auto" })
+      }, 10)
+    }
+  })
+})
+onBeforeRouteLeave(() => {
+  viewed.value = true
+  scrollPosition.value = window.scrollY
+})
 </script>
 <template>
   <Teleport v-if="itemId && routeActive" to="body">
