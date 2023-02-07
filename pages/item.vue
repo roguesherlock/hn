@@ -103,6 +103,9 @@ onBeforeRouteLeave(() => {
   viewed.value = true
   scrollPosition.value = window.scrollY
 })
+
+// check for any hacker news link and add a listener to open it in our site
+useExternalLinks(".prose")
 </script>
 <template>
   <Teleport v-if="itemId && routeActive" to="body">
