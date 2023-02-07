@@ -75,7 +75,7 @@ const share = useShare({ title: shareTitle, url: shareUrl })
 const back = () => {
   router.go(-1)
 }
-const routeActive = ref(false)
+const routeActive = ref(true)
 onActivated(() => {
   routeActive.value = true
 })
