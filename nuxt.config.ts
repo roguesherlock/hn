@@ -25,6 +25,13 @@ export default defineNuxtConfig({
       },
     },
   },
+  runtimeConfig: {
+    public: {
+      storyStaleTime: 1000 * 60 * 10, // 10 minutes
+      globalStaleTime: 1000 * 60 * 5, // 5 minutes
+      globalCacheTime: 1000 * 60 * 60 * 48, // 48 hours
+    },
+  },
   app: {
     keepalive: true,
     head: {

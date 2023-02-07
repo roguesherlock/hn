@@ -15,11 +15,14 @@ const props = withDefaults(defineProps<Props>(), {
   big: false,
 })
 
+const config = useRuntimeConfig()
+
 const {
   data: story,
   isLoading,
   isRefetching,
 } = useQuery({
+  //@ts-ignore
   queryKey: ["story", props.id],
   queryFn: async () => {
     try {
@@ -31,6 +34,7 @@ const {
       return null
     }
   },
+  staleTime: config.public.storyStaleTime,
 })
 </script>
 <template>

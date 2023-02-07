@@ -1,34 +1,35 @@
 import type {
-  DehydratedState,
+  // DehydratedState,
   VueQueryPluginOptions,
 } from "@tanstack/vue-query"
 import {
   VueQueryPlugin,
   QueryClient,
-  hydrate,
-  dehydrate,
+  // hydrate,
+  // dehydrate,
 } from "@tanstack/vue-query"
 // Nuxt 3 app aliases
 import { useState } from "#app"
 import { persistQueryClient } from "@tanstack/query-persist-client-core"
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister"
 
-export default defineNuxtPlugin((nuxt) => {
-  const vueQueryState = useState<DehydratedState | null>("vue-query")
+export default defineNuxtPlugin(nuxt => {
+  // const vueQueryState = useState<DehydratedState | null>("vue-query")
+  const config = useRuntimeConfig()
 
   // Modify your Vue Query global settings here
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        cacheTime: 1000 * 60 * 60 * 48, // 48 hours
-        staleTime: 5000,
+        cacheTime: config.public.globalCacheTime, // 48 hours
+        staleTime: config.public.globalStaleTime, // 5 minutes
         suspense: true,
       },
     },
   })
   const options: VueQueryPluginOptions = {
     queryClient,
-    clientPersister: (queryClient) => {
+    clientPersister: queryClient => {
       return persistQueryClient({
         queryClient,
         persister: createSyncStoragePersister({ storage: localStorage }),
