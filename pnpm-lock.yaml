@@ -8,7 +8,6 @@ specifiers:
   '@kevinmarrec/nuxt-pwa': ^0.16.1
   '@nuxt/eslint-config': ^0.1.1
   '@nuxtjs/tailwindcss': ^6.3.1
-  '@nuxtjs/web-vitals': ^0.2.2
   '@pinia/nuxt': ^0.4.6
   '@tailwindcss/forms': ^0.5.3
   '@tailwindcss/typography': ^0.5.9
@@ -42,7 +41,6 @@ devDependencies:
   '@kevinmarrec/nuxt-pwa': 0.16.1
   '@nuxt/eslint-config': 0.1.1_eslint@8.33.0
   '@nuxtjs/tailwindcss': 6.3.1
-  '@nuxtjs/web-vitals': 0.2.2
   '@tailwindcss/forms': 0.5.3
   '@tailwindcss/typography': 0.5.9
   '@vueuse/nuxt': 9.12.0_nuxt@3.1.2
@@ -1208,19 +1206,6 @@ packages:
       - supports-color
       - ts-node
       - webpack
-    dev: true
-
-  /@nuxtjs/web-vitals/0.2.2:
-    resolution: {integrity: sha512-UfIxBJGDXYnCgchPKt3rN1Tf66gUpRtOyo8gk9V9S2VWp8Q9ylHrwTB+y6ZPW+HRIC4B+KRh+LBIHv9ELycAJQ==}
-    dependencies:
-      '@nuxt/kit': 3.1.2
-      defu: 6.1.2
-      pathe: 1.1.0
-      ufo: 1.0.1
-      web-vitals: 3.1.1
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
     dev: true
 
   /@pinia/nuxt/0.4.6:
@@ -6604,10 +6589,6 @@ packages:
   /web-streams-polyfill/3.2.1:
     resolution: {integrity: sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==}
     engines: {node: '>= 8'}
-    dev: true
-
-  /web-vitals/3.1.1:
-    resolution: {integrity: sha512-qvllU+ZeQChqzBhZ1oyXmWsjJ8a2jHYpH8AMaVuf29yscOPZfTQTjQFRX6+eADTdsDE8IanOZ0cetweHMs8/2A==}
     dev: true
 
   /webidl-conversions/3.0.1:
