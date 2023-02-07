@@ -40,6 +40,10 @@ const { data, suspense } = useQuery({
 })
 await suspense()
 
+useSeoMeta({
+  title: capitalize(type.value) + " Stories",
+})
+
 // dynamically add more items to the list rather than all at once to improve perfomance and network waterfall issues!
 const CURSOR_SIZE = 30
 const items = ref<number[]>([])

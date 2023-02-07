@@ -23,6 +23,11 @@ const { data: user, isLoading } = useQuery({
   },
   staleTime: import.meta.env?.VITE_STORY_STALE_TIME ?? 1000 * 60 * 10, // 10 minutes
 })
+
+useSeoMeta({
+  title: () => `Profile: ${capitalize(user.value?.id ?? "")}`,
+})
+
 const componentIsActive = useComponentIsActive()
 </script>
 <template>

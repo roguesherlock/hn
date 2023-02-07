@@ -28,6 +28,10 @@ const { data: item, isLoading } = useQuery({
   },
 })
 
+useSeoMeta({
+  title: () => capitalize(item.value?.title ?? ""),
+})
+
 const story = computed(() => {
   if (!item.value) return null
   return {

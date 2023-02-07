@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@kevinmarrec/nuxt-pwa",
     "@pinia/nuxt",
     "@vueuse/nuxt",
+    "nuxt-unhead",
   ],
   css: ["@fontsource/inter/variable.css"],
   typescript: {
@@ -27,6 +28,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      titleSeperator: "|",
+      siteName: "Hacker News",
       storyStaleTime: 1000 * 60 * 10, // 10 minutes
       globalStaleTime: 1000 * 60 * 5, // 5 minutes
       globalCacheTime: 1000 * 60 * 60 * 48, // 48 hours
@@ -35,6 +38,7 @@ export default defineNuxtConfig({
   app: {
     keepalive: true,
     head: {
+      titleTemplate: `%s %titleSeperator %siteName`,
       htmlAttrs: {
         class: "dark antialiased",
       },
