@@ -23,7 +23,7 @@ const currentStoryId = computed(() => {
   return Number(route.params.ids?.[0] ?? 0)
 })
 
-const { data, suspense, isRefetching } = useQuery({
+const { data, suspense } = useQuery({
   // @ts-ignore
   queryKey: [storyType],
   queryFn: async () => {
@@ -83,17 +83,12 @@ watch(storyType, () => {
       <h1 class="font-bold">{{ capitalize(type) }} Stories</h1>
     </div>
     <ul class="mt-[52px] grid gap-1 md:mt-[unset]">
-      <template v-if="isRefetching">
-        <StoryPreviewSkeleton v-for="i in 10" :key="i" />
-      </template>
-      <template v-else-if="items">
-        <StoryPreview
-          v-for="id in items"
-          :key="id"
-          v-memo="[currentStoryId === id]"
-          :id="id"
-        />
-      </template>
+      <StoryPreview
+        v-for="id in items"
+        :key="id"
+        v-memo="[currentStoryId === id]"
+        :id="id"
+      />
     </ul>
   </div>
 </template>
