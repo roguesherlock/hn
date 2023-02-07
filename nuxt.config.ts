@@ -38,7 +38,6 @@ export default defineNuxtConfig({
   app: {
     keepalive: true,
     head: {
-      titleTemplate: `%s %titleSeperator %siteName`,
       htmlAttrs: {
         class: "dark antialiased",
       },

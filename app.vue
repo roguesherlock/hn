@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useMagicKeys } from "@vueuse/core"
 
+const config = useRuntimeConfig()
 const keys = useMagicKeys()
 const b = keys["b"]
 const cntrlO = keys["Control+o"]
@@ -9,6 +10,13 @@ const router = useRouter()
 whenever(b, () => router.go(-1))
 whenever(cntrlO, () => router.go(-1))
 whenever(cntrlI, () => router.go(1))
+useHead({
+  titleTemplate: titleChunk => {
+    return titleChunk
+      ? `${titleChunk} ${config.public.titleSeparator} ${config.public.siteName}`
+      : config.public.siteName
+  },
+})
 </script>
 
 <template>
