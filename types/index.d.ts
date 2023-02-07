@@ -2,6 +2,7 @@ export type DateType = string | Date | number
 export type Nullable<T> = T | null
 export type Dict = Record<strig, any>
 export type MaybeRef<T> = T | import("vue").Ref<T>
+export type VueComponent = import("vue").Component
 
 // Hacker News Item
 // id -	The item's unique id.
@@ -72,4 +73,10 @@ export type HNAlgoliaItem = {
   parent_id: number | null
   children: HNAlgoliaItem[]
   type: "job" | "story" | "comment" | "poll" | "pollopt"
+}
+
+export type HNItemState = {
+  upvoted: boolean
+  viewed: boolean
+  scrollPosition: number
 }

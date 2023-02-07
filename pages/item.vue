@@ -83,6 +83,15 @@ onDeactivated(() => {
   routeActive.value = false
 })
 
+const itemSelector = computed(() => {
+  if (item.value && item.value.type === "story")
+    return `[data-id=story-${itemId.value}]  h1`
+  if (item.value && item.value.type === "comment")
+    return `[data-id=comment-${itemId.value}]  a`
+  return ""
+})
+const isItemCardVisible = useIsVisible(itemSelector)
+
 const scrollEl = ref<HTMLElement | null>(null)
 const enabled = computed(() => {
   return routeActive.value && !isLoading.value
@@ -127,7 +136,7 @@ useExternalLinks(".prose")
         </span>
       </button>
       <p class="mx-auto">
-        <span v-show="true"> Comments </span>
+        <span v-show="!isItemCardVisible"> Comments </span>
       </p>
       <button class="ml-auto mr-1" aria-label="share story" @click="share">
         <Icon name="radix-icons:share-2" class="h-5 w-5" aria-hidden="true" />
