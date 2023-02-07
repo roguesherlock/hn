@@ -13,7 +13,7 @@ export const useNavigation = ({ scrollEl }: useNavigationOptions) => {
     })
   )
 
-  const { j, k } = useMagicKeys()
+  const { l, h, shift_j, shift_k } = useMagicKeys()
 
   const scrollIntoView = (el?: HTMLElement | Element) => {
     if (!el) return
@@ -109,8 +109,22 @@ export const useNavigation = ({ scrollEl }: useNavigationOptions) => {
     }
   }
 
-  whenever(j, scrollToNext)
-  whenever(k, scrollToPrev)
+  useEventListener(
+    "keydown",
+    useThrottleFn(e => {
+      let amount = 300
+      if (e.key === "j") {
+        window.scrollBy({ top: amount, behavior: "smooth" })
+      } else if (e.key === "k") {
+        window.scrollBy({ top: -amount, behavior: "smooth" })
+        // window.scrollBy(0, -50)
+      }
+    }, 300)
+  )
+  whenever(l, scrollToNext)
+  whenever(h, scrollToPrev)
+  whenever(shift_j, scrollToNext)
+  whenever(shift_k, scrollToPrev)
 
   return {
     scrollToPrev,
