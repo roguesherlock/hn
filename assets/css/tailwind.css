@@ -1,0 +1,85 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  .min-h-safe {
+    min-height: calc(
+      100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    );
+  }
+  .h-safe {
+    height: calc(
+      100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    );
+  }
+
+  .subtle-link {
+    @apply font-medium hover:text-mauve-11 hover:underline focus:underline focus:outline-none dark:hover:text-purpleDark-11;
+  }
+
+  /* width */
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar:horizontal {
+    width: 4px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-track:horizontal {
+    @apply rounded bg-purple-1 shadow-inner dark:bg-purpleDark-1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-thumb:horizontal {
+    @apply rounded-xl bg-purple-3 dark:bg-purpleDark-3;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover,
+  ::-webkit-scrollbar-thumb:horizontal:hover {
+    @apply bg-purple-4 dark:bg-purpleDark-4;
+  }
+
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+  .scroll-hidden::-webkit-scrollbar,
+  .scroll-hidden::-webkit-scrollbar:horizontal {
+    display: none;
+  }
+
+  /* For IE, Edge and Firefox */
+  .scroll-hidden {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .shake {
+    animation: shake 0.5s cubic-bezier(0.2, 0.8, 0.4, 1) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+}
