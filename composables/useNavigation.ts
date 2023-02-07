@@ -56,6 +56,12 @@ export const useNavigation = ({ scrollEl, enabled }: useNavigationOptions) => {
   }
 
   onDeactivated(() => {
+    observer.value?.takeRecords()?.forEach(record => {
+      observer.value?.unobserve(record.target)
+      scrolled.value.delete(record.target as HTMLElement)
+    })
+  })
+  onUnmounted(() => {
     observer.value?.disconnect()
   })
 
