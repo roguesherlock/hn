@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { HNItem } from "@/types"
 import { useQuery } from "@tanstack/vue-query"
-import { defineAsyncComponent } from "vue"
 import StoryPreviewSkeleton from "./StoryPreviewSkeleton.vue"
-const StoryCard = defineAsyncComponent(() => import("./StoryCard.vue"))
 
 interface Props {
   as?: string
@@ -17,7 +15,11 @@ const props = withDefaults(defineProps<Props>(), {
   big: false,
 })
 
-const { data: story, isLoading } = useQuery({
+const {
+  data: story,
+  isLoading,
+  isRefetching,
+} = useQuery({
   queryKey: ["story", props.id],
   queryFn: async () => {
     try {
@@ -32,7 +34,7 @@ const { data: story, isLoading } = useQuery({
 })
 </script>
 <template>
-  <template v-if="isLoading">
+  <template v-if="isLoading || isRefetching">
     <StoryPreviewSkeleton />
   </template>
   <template v-else-if="story">

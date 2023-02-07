@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/vue-query"
 const type = computed(() => useRoute().params.type as string)
 
 definePageMeta({
-  middleware: (to) => {
+  middleware: to => {
     if (!Object.keys(storyTypeMap).includes(to.params?.type as string)) {
       return navigateTo("/top")
     }
@@ -23,7 +23,7 @@ const currentStoryId = computed(() => {
   return Number(route.params.ids?.[0] ?? 0)
 })
 
-const { data, suspense } = useQuery({
+const { data, suspense, isRefetching } = useQuery({
   // @ts-ignore
   queryKey: [storyType],
   queryFn: async () => {
@@ -37,9 +37,42 @@ const { data, suspense } = useQuery({
       return null
     }
   },
-  suspense: true,
 })
 await suspense()
+
+// dynamically add more items to the list rather than all at once to improve perfomance and network waterfall issues!
+const CURSOR_SIZE = 30
+const items = ref<number[]>([])
+const cursor = ref(0)
+const loaded = ref(false)
+useInfiniteScroll(
+  window,
+  () => {
+    cursor.value = cursor.value + CURSOR_SIZE
+    items.value = data.value?.slice(0, cursor.value) ?? []
+  },
+  { distance: 10 }
+)
+watch(
+  data,
+  () => {
+    if (data.value && !loaded.value) {
+      loaded.value = true
+      if (data.value.length < CURSOR_SIZE) {
+        cursor.value = data.value.length
+      } else {
+        cursor.value = CURSOR_SIZE
+      }
+      items.value = data.value?.slice(0, cursor.value) ?? []
+    }
+  },
+  { immediate: true }
+)
+watch(storyType, () => {
+  // reset cursor
+  loaded.value = false
+  cursor.value = 0
+})
 </script>
 
 <template>
@@ -50,12 +83,17 @@ await suspense()
       <h1 class="font-bold">{{ capitalize(type) }} Stories</h1>
     </div>
     <ul class="mt-[52px] grid gap-1 md:mt-[unset]">
-      <StoryPreview
-        v-for="id in data"
-        :key="id"
-        v-memo="[currentStoryId === id]"
-        :id="id"
-      />
+      <template v-if="isRefetching">
+        <StoryPreviewSkeleton v-for="i in 10" :key="i" />
+      </template>
+      <template v-else-if="items">
+        <StoryPreview
+          v-for="id in items"
+          :key="id"
+          v-memo="[currentStoryId === id]"
+          :id="id"
+        />
+      </template>
     </ul>
   </div>
 </template>
