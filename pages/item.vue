@@ -72,16 +72,7 @@ const shareUrl = computed(() => {
 
 const share = useShare({ title: shareTitle, url: shareUrl })
 
-const back = () => {
-  router.go(-1)
-}
-const routeActive = ref(true)
-onActivated(() => {
-  routeActive.value = true
-})
-onDeactivated(() => {
-  routeActive.value = false
-})
+const componentIsActive = useComponentIsActive()
 
 const itemSelector = computed(() => {
   if (item.value && item.value.type === "story")
@@ -94,7 +85,7 @@ const isItemCardVisible = useIsVisible(itemSelector)
 
 const scrollEl = ref<HTMLElement | null>(null)
 const enabled = computed(() => {
-  return routeActive.value && !isLoading.value
+  return componentIsActive.value && !isLoading.value
 })
 const { scrollToNext } = useNavigation({ scrollEl, enabled })
 
@@ -121,14 +112,14 @@ const filteredComments = computed(
 )
 </script>
 <template>
-  <Teleport v-if="itemId && routeActive" to="body">
+  <Teleport v-if="componentIsActive" to="body">
     <div
       class="fixed inset-x-0 top-0 z-20 mx-auto grid h-12 w-full max-w-xl grid-cols-3 items-center border-b border-purple-6 bg-purple-3/80 px-4 py-2 font-medium backdrop-blur-xl transition dark:border-purpleDark-6 dark:bg-purpleDark-3/80 sm:px-4 sm:py-3"
     >
       <button
         class="flex items-center font-medium"
         aria-label="go back"
-        @click="back"
+        @click="$router.go(-1)"
       >
         <Icon
           name="heroicons:chevron-left-20-solid"
