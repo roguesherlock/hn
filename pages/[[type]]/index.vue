@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useQuery } from "@tanstack/vue-query"
+import { useHomeNavigation } from "~/composables/hn"
 
 const type = computed(() => useRoute().params.type as string)
 
@@ -77,6 +78,9 @@ watch(storyType, () => {
   loaded.value = false
   cursor.value = 0
 })
+
+const enabled = useComponentIsActive()
+useScope(useHomeNavigation, { enabled })
 </script>
 
 <template>

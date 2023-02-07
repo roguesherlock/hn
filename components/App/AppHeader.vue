@@ -1,21 +1,8 @@
 <script setup lang="ts">
-type Route = {
-  path: string
-  name: string
-}
-const routeList: Route[] = [
-  { name: "Top", path: "/top" },
-  { name: "New", path: "/new" },
-  { name: "Best", path: "/best" },
-  { name: "Ask", path: "/ask" },
-  { name: "Show", path: "/show" },
-  { name: "Jobs", path: "/jobs" },
-]
-
 const route = useRoute()
 
 const links = computed(() =>
-  routeList.map((r: Route) => {
+  storyRoutes.map(r => {
     return {
       href: r.path,
       label: r.name,

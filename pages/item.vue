@@ -9,7 +9,6 @@ definePageMeta({
   },
 })
 
-const router = useRouter()
 const route = useRoute()
 const itemId = computed(() => Number(route.query?.id))
 
