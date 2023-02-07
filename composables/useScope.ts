@@ -1,12 +1,18 @@
 import { EffectScope } from "vue"
+import type { Ref } from "vue"
 
-export const useScope = (func: () => void, { enabled = ref(true) }) => {
-  let state
+type Fn = (...args: any[]) => any
+
+export const useScope = <T extends Fn>(
+  func: T,
+  { enabled = ref(true) } = {}
+) => {
+  let state: Ref<ReturnType<T> | null> = ref(null)
   let scope: EffectScope
 
   const dispose = () => {
     scope && scope.stop()
-    state = null
+    state.value = null
   }
 
   watch(
@@ -14,8 +20,7 @@ export const useScope = (func: () => void, { enabled = ref(true) }) => {
     () => {
       if (enabled.value) {
         scope = effectScope()
-        console.log("running")
-        state = scope.run(() => func())
+        state.value = scope.run(() => func())
       } else {
         dispose()
       }
@@ -25,5 +30,5 @@ export const useScope = (func: () => void, { enabled = ref(true) }) => {
 
   onScopeDispose(dispose)
 
-  return dispose
+  return { state, dispose }
 }
