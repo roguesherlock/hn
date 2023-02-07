@@ -2,19 +2,13 @@
 import { useMagicKeys } from "@vueuse/core"
 
 const keys = useMagicKeys()
+const b = keys["b"]
 const cntrlO = keys["Control+o"]
 const cntrlI = keys["Control+i"]
 const router = useRouter()
-watch(cntrlO, (value) => {
-  if (value) {
-    router.go(-1)
-  }
-})
-watch(cntrlI, (value) => {
-  if (value) {
-    router.go(1)
-  }
-})
+whenever(b, () => router.go(-1))
+whenever(cntrlO, () => router.go(-1))
+whenever(cntrlI, () => router.go(1))
 </script>
 
 <template>
