@@ -23,7 +23,7 @@ const links = computed(() =>
     }
   })
 )
-const isHome = computed(() => route.params.type !== "item")
+const isHome = computed(() => route.params.type)
 </script>
 <template>
   <nav class="hidden flex-1 justify-end md:relative md:flex">
@@ -47,24 +47,26 @@ const isHome = computed(() => route.params.type !== "item")
   </nav>
   <nav
     v-if="isHome"
-    class="scroll-hidden overfflow-y-hidden fixed inset-x-0 top-0 z-20 mb-1 flex h-12 items-center space-x-1 overflow-x-auto border-b border-purple-6 bg-purple-3/80 py-3 px-4 font-mono backdrop-blur-xl dark:border-purpleDark-6 dark:bg-purpleDark-3/80 md:hidden"
+    class="scroll-hidden overfflow-y-hidden fixed inset-x-0 top-0 z-20 mb-1 h-12 overflow-x-auto border-b border-purple-6 bg-purple-3/80 py-3 px-4 font-mono backdrop-blur-xl dark:border-purpleDark-6 dark:bg-purpleDark-3/80 md:hidden"
   >
-    <NuxtLink
-      to="/"
-      aria-label="Home"
-      class="mr-3 font-sans font-black"
-      :active="false"
-    >
-      HN
-    </NuxtLink>
-    <AppNavLink
-      v-for="link in links"
-      :key="link.href"
-      :href="link.href"
-      :aria-label="link.label"
-      :active="link.active"
-    >
-      {{ link.label }}
-    </AppNavLink>
+    <div class="mx-auto flex max-w-xl items-center gap-1">
+      <NuxtLink
+        to="/"
+        aria-label="Home"
+        class="mr-3 font-sans font-black"
+        :active="false"
+      >
+        HN
+      </NuxtLink>
+      <AppNavLink
+        v-for="link in links"
+        :key="link.href"
+        :href="link.href"
+        :aria-label="link.label"
+        :active="link.active"
+      >
+        {{ link.label }}
+      </AppNavLink>
+    </div>
   </nav>
 </template>
