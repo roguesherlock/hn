@@ -8,10 +8,16 @@ export default defineNuxtConfig({
     "@kevinmarrec/nuxt-pwa",
     "@pinia/nuxt",
     "@vueuse/nuxt",
+    "@vue-macros/nuxt",
   ],
   css: ["@fontsource/inter/variable.css"],
   typescript: {
     strict: true,
+    // tsConfig: {
+    //   vueCompilerOptions: {
+    //     experimentalRfc436: true,
+    //   },
+    // },
   },
   vite: {
     build: {

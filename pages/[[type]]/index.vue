@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { useQuery } from "@tanstack/vue-query"
+// @ts-expect-error missing types
+import { DynamicScroller, DynamicScrollerItem } from "vue-virtual-scroller"
+import "vue-virtual-scroller/dist/vue-virtual-scroller.css"
 
 const type = computed(() => useRoute().params.type as string)
 
 definePageMeta({
-  middleware: (to) => {
+  middleware: to => {
     if (!Object.keys(storyTypeMap).includes(to.params?.type as string)) {
       return navigateTo("/top")
     }
@@ -40,6 +43,7 @@ const { data, suspense } = useQuery({
   suspense: true,
 })
 await suspense()
+const items = computed(() => (data.value ?? []).map(id => ({ id })))
 </script>
 
 <template>
@@ -49,13 +53,20 @@ await suspense()
     >
       <h1 class="font-bold">{{ capitalize(type) }} Stories</h1>
     </div>
-    <ul class="mt-[52px] grid gap-1 md:mt-[unset]">
-      <StoryPreview
-        v-for="id in data"
-        :key="id"
-        v-memo="[currentStoryId === id]"
-        :id="id"
-      />
-    </ul>
+    <div class="mt-[52px] grid gap-1 md:mt-[unset]">
+      <DynamicScroller
+        v-slot="{ item, index, active }"
+        :items="items"
+        :min-item-size="100"
+        key-field="id"
+        page-mode
+      >
+        <DynamicScrollerItem :item="item" :active="active">
+          <div class="pb-1">
+            <StoryPreview :id="item.id" as="div" />
+          </div>
+        </DynamicScrollerItem>
+      </DynamicScroller>
+    </div>
   </div>
 </template>
