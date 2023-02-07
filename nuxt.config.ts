@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@kevinmarrec/nuxt-pwa",
     "@pinia/nuxt",
     "@vueuse/nuxt",
+    "@nuxtjs/web-vitals",
   ],
   css: ["@fontsource/inter/variable.css"],
   typescript: {
