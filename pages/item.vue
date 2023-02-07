@@ -115,6 +115,10 @@ onBeforeRouteLeave(() => {
 
 // check for any hacker news link and add a listener to open it in our site
 useExternalLinks(".prose")
+
+const filteredComments = computed(
+  () => item.value?.children?.filter(c => c.text) ?? []
+)
 </script>
 <template>
   <Teleport v-if="itemId && routeActive" to="body">
@@ -161,7 +165,7 @@ useExternalLinks(".prose")
       />
       <ul ref="scrollEl" class="mt-1 grid gap-1 pb-20">
         <Comment
-          v-for="i in item?.children"
+          v-for="i in filteredComments"
           :key="i.id"
           :comment="i"
           class="min-w-full bg-purple-2 dark:bg-purpleDark-2"
