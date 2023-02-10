@@ -12,7 +12,7 @@
     "@headlessui/tailwindcss": "^0.1.2",
     "@iconify-icons/heroicons": "^1.2.7",
     "@iconify-icons/radix-icons": "^1.2.8",
-    "@kevinmarrec/nuxt-pwa": "^0.16.1",
+    "@kevinmarrec/nuxt-pwa": "^0.16.2",
     "@nuxt/eslint-config": "^0.1.1",
     "@nuxtjs/tailwindcss": "^6.3.1",
     "@tailwindcss/forms": "^0.5.3",
@@ -20,10 +20,10 @@
     "@vueuse/nuxt": "^9.12.0",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
-    "nuxt": "^3.1.2",
+    "nuxt": "^3.2.0",
     "nuxt-headlessui": "^1.1.1",
-    "nuxt-icon": "^0.2.10",
-    "prettier": "^2.8.3",
+    "nuxt-icon": "^0.2.11",
+    "prettier": "^2.8.4",
     "prettier-plugin-tailwindcss": "^0.2.2"
   },
   "dependencies": {
