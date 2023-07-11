@@ -6,6 +6,7 @@
     "node": ">=18",
     "pnpm": ">=8"
   },
+  "packageManager": "8.6.7",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
