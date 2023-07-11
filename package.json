@@ -1,6 +1,11 @@
 {
+  "name": "hn",
+  "description": "A simple hacker news client",
   "private": true,
-  "packageManager": "pnpm@7.26.3",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
