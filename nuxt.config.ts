@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@vueuse/nuxt",
   ],
-  css: ["@fontsource/inter/variable.css"],
+  css: ["@fontsource-variable/inter"],
   typescript: {
     strict: true,
   },

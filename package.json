@@ -15,30 +15,30 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@headlessui/tailwindcss": "^0.1.2",
-    "@iconify-icons/heroicons": "^1.2.7",
-    "@iconify-icons/radix-icons": "^1.2.8",
-    "@kevinmarrec/nuxt-pwa": "^0.16.2",
-    "@nuxt/eslint-config": "^0.1.1",
-    "@nuxtjs/tailwindcss": "^6.3.1",
-    "@tailwindcss/forms": "^0.5.3",
-    "@tailwindcss/typography": "^0.5.9",
-    "@vueuse/nuxt": "^9.12.0",
-    "eslint": "^8.33.0",
-    "eslint-config-prettier": "^8.6.0",
-    "nuxt": "^3.6.1",
-    "nuxt-headlessui": "^1.1.1",
-    "nuxt-icon": "^0.2.11",
-    "prettier": "^2.8.4",
-    "prettier-plugin-tailwindcss": "^0.2.2"
+    "@headlessui/tailwindcss": "^0.2.0",
+    "@iconify-icons/heroicons": "^1.2.8",
+    "@iconify-icons/radix-icons": "^1.2.9",
+    "@kevinmarrec/nuxt-pwa": "^0.17.0",
+    "@nuxt/eslint-config": "^0.2.0",
+    "@nuxtjs/tailwindcss": "^6.8.0",
+    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/typography": "^0.5.10",
+    "@vueuse/nuxt": "^10.4.1",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "nuxt": "^3.7.1",
+    "nuxt-headlessui": "^1.1.4",
+    "nuxt-icon": "^0.5.0",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.4"
   },
   "dependencies": {
-    "@fontsource/inter": "^4.5.15",
-    "@pinia/nuxt": "^0.4.6",
-    "@tanstack/query-persist-client-core": "^4.24.4",
-    "@tanstack/query-sync-storage-persister": "^4.24.4",
-    "@tanstack/vue-query": "^4.24.4",
-    "@vueuse/core": "^9.12.0",
-    "pinia": "^2.0.30"
+    "@fontsource-variable/inter": "^5.0.8",
+    "@pinia/nuxt": "^0.4.11",
+    "@tanstack/query-persist-client-core": "^4.35.0",
+    "@tanstack/query-sync-storage-persister": "^4.35.0",
+    "@tanstack/vue-query": "^4.35.2",
+    "@vueuse/core": "^10.4.1",
+    "pinia": "^2.1.6"
   }
 }
