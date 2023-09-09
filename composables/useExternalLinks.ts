@@ -35,14 +35,14 @@ export const useExternalLinks = (selector: string) => {
   }
   const updateLinks = () => {
     const links = document.querySelectorAll(
-      `${selector} a`
+      `${selector} a`,
     ) as NodeListOf<HTMLAnchorElement>
     links.forEach(link => {
       if (link.href.includes("news.ycombinator.com")) {
         link.setAttribute("target", "_self")
         link.addEventListener("click", linkHandler)
         liisteners.value.push(() =>
-          link.removeEventListener("click", linkHandler)
+          link.removeEventListener("click", linkHandler),
         )
       } else {
         link.setAttribute("target", "_blank")

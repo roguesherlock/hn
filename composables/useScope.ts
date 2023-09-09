@@ -5,7 +5,7 @@ type Fn = (...args: any[]) => any
 
 export const useScope = <T extends Fn>(
   func: T,
-  { enabled = ref(true) } = {}
+  { enabled = ref(true) } = {},
 ) => {
   let state: Ref<ReturnType<T> | null> = ref(null)
   let scope: EffectScope
@@ -25,7 +25,7 @@ export const useScope = <T extends Fn>(
         dispose()
       }
     },
-    { immediate: true }
+    { immediate: true },
   )
 
   onScopeDispose(dispose)

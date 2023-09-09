@@ -24,18 +24,18 @@ export const useToastStore = defineStore("toast", () => {
     })
   }
   function dismiss(id: number) {
-    toasts.value = toasts.value.filter((t) => t.id !== id)
+    toasts.value = toasts.value.filter(t => t.id !== id)
   }
 
   function pauseTimer(id: number) {
-    const toast = toasts.value.find((t) => t.id === id)
+    const toast = toasts.value.find(t => t.id === id)
     if (toast) {
       toast.__paused = true
     }
   }
 
   function startTimer(id: number) {
-    const toast = toasts.value.find((t) => t.id === id)
+    const toast = toasts.value.find(t => t.id === id)
     if (toast) {
       toast.__paused = false
       toast.__timeout = new Date().getTime() + 5000
@@ -44,7 +44,7 @@ export const useToastStore = defineStore("toast", () => {
 
   setInterval(() => {
     const time = new Date().getTime()
-    toasts.value = toasts.value.filter((t) => {
+    toasts.value = toasts.value.filter(t => {
       if (t.__paused) {
         return true
       }
