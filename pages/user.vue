@@ -17,7 +17,7 @@ const { data: user, isLoading } = useQuery({
   queryKey: ["hn-user", userId],
   queryFn: async () => {
     const response = await fetch(
-      `https://hacker-news.firebaseio.com/v0/user/${userId.value}.json`
+      `https://hacker-news.firebaseio.com/v0/user/${userId.value}.json`,
     )
     return (await response.json()) as HNUser
   },

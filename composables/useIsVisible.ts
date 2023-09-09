@@ -4,7 +4,7 @@ import type { Ref } from "vue"
 export const useIsVisible = (itemSelector: Ref<string>) => {
   const isVisible = ref(true)
   const callback = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach((entry) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         isVisible.value = true
       } else {

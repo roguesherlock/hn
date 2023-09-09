@@ -18,7 +18,7 @@ const { data: item, isLoading } = useQuery({
   queryFn: async () => {
     try {
       const response = await fetch(
-        `https://hn.algolia.com/api/v1/items/${itemId.value}`
+        `https://hn.algolia.com/api/v1/items/${itemId.value}`,
       )
       return (await response.json()) as HNAlgoliaItem
     } catch (e) {
@@ -113,7 +113,7 @@ onBeforeRouteLeave(() => {
 useExternalLinks(".prose")
 
 const filteredComments = computed(
-  () => item.value?.children?.filter(c => c.text) ?? []
+  () => item.value?.children?.filter(c => c.text) ?? [],
 )
 
 const el = ref<HTMLElement | null>(null)
@@ -131,7 +131,7 @@ whenever(
   () => !isDragging,
   () => {
     preferences.value.scrollButtonPosition = { x: x.value, y: y.value }
-  }
+  },
 )
 </script>
 <template>
@@ -197,7 +197,7 @@ whenever(
   </div>
   <div class="fixed" ref="el" :style="style">
     <button
-      class="grid cursor-default place-items-center rounded-full bg-purple-3 p-2 ring-purple-7 ring-offset-purple-1 transition hover:bg-purple-4 focus:outline-none focus:ring focus:ring-offset-1 active:bg-purple-5 dark:bg-purpleDark-3 dark:ring-purpleDark-7 dark:ring-offset-purpleDark-1 dark:hover:bg-purpleDark-4 dark:active:bg-purpleDark-5 md:right-5 md:bottom-5"
+      class="grid cursor-default place-items-center rounded-full bg-purple-3 p-2 ring-purple-7 ring-offset-purple-1 transition hover:bg-purple-4 focus:outline-none focus:ring focus:ring-offset-1 active:bg-purple-5 dark:bg-purpleDark-3 dark:ring-purpleDark-7 dark:ring-offset-purpleDark-1 dark:hover:bg-purpleDark-4 dark:active:bg-purpleDark-5 md:bottom-5 md:right-5"
       aria-label="scroll to next top level reply"
       @click="state?.scrollToNext"
     >

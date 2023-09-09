@@ -2,7 +2,7 @@ export const useHomeNavigation = () => {
   const route = useRoute()
   const router = useRouter()
   const currentRouteIndex = computed(() =>
-    storyRoutes.findIndex(r => r.path === route.path)
+    storyRoutes.findIndex(r => r.path === route.path),
   )
   const prevRoute = computed(() => storyRoutes[currentRouteIndex.value - 1])
   const nextRoute = computed(() => storyRoutes[currentRouteIndex.value + 1])

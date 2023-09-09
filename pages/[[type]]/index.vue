@@ -30,7 +30,7 @@ const { data, suspense } = useQuery({
   queryFn: async () => {
     try {
       const response = await fetch(
-        `https://hacker-news.firebaseio.com/v0/${storyType.value}.json`
+        `https://hacker-news.firebaseio.com/v0/${storyType.value}.json`,
       )
       // we only care about first 200
       return ((await response.json()) as number[]).slice(0, 200)
@@ -56,7 +56,7 @@ useInfiniteScroll(
     cursor.value = cursor.value + CURSOR_SIZE
     items.value = data.value?.slice(0, cursor.value) ?? []
   },
-  { distance: 10 }
+  { distance: 10 },
 )
 watch(
   data,
@@ -71,7 +71,7 @@ watch(
       items.value = data.value?.slice(0, cursor.value) ?? []
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 watch(storyType, () => {
   // reset cursor

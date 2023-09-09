@@ -3,7 +3,7 @@ import type { HNItem, HNItemState, HNAlgoliaItem } from "@/types"
 
 type State = Map<string | number, HNItemState>
 export const useItemState = (
-  item: Ref<HNItem<any>> | Ref<HNAlgoliaItem> | Ref<undefined> | Ref<null>
+  item: Ref<HNItem<any>> | Ref<HNAlgoliaItem> | Ref<undefined> | Ref<null>,
 ) => {
   const initState = () => ({
     upvoted: false,
@@ -15,7 +15,7 @@ export const useItemState = (
 
   const setState = (
     id: string | number | undefined,
-    value: Partial<HNItemState>
+    value: Partial<HNItemState>,
   ) => {
     if (state.value && id) {
       if (!state.value.has(id)) state.value.set(id, initState())

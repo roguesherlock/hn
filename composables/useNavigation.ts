@@ -10,7 +10,7 @@ export const useNavigation = ({ scrollEl }: useNavigationOptions) => {
   const sortedScrolled = computed(() =>
     Array.from(scrolled.value).sort((a, b) => {
       return a.getBoundingClientRect().top - b.getBoundingClientRect().top
-    })
+    }),
   )
 
   const { l, h, shift_j, shift_k } = useMagicKeys()
@@ -119,7 +119,7 @@ export const useNavigation = ({ scrollEl }: useNavigationOptions) => {
         window.scrollBy({ top: -amount, behavior: "smooth" })
         // window.scrollBy(0, -50)
       }
-    }, 300)
+    }, 300),
   )
   whenever(l, scrollToNext)
   whenever(h, scrollToPrev)

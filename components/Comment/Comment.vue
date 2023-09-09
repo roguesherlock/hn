@@ -48,7 +48,7 @@ const shouldOpen = computed(() => {
 })
 
 const formattedTime = computed(
-  () => (props.comment && formatDateWithTime(props.comment.created_at)) ?? ""
+  () => (props.comment && formatDateWithTime(props.comment.created_at)) ?? "",
 )
 
 const el = ref<ComponentPublicInstance>()
@@ -93,7 +93,7 @@ const handleClose = ({ close, e, conditionallyScroll }: HandleCloseOptions) => {
         :disabled="!renderKids"
       >
         <div
-          class="flex w-full items-center justify-between py-3 px-4 ui-open:pt-3 ui-open:pb-2 sm:px-5 sm:py-3"
+          class="flex w-full items-center justify-between px-4 py-3 ui-open:pb-2 ui-open:pt-3 sm:px-5 sm:py-3"
         >
           <div class="flex items-center">
             <NuxtLink
@@ -146,7 +146,7 @@ const handleClose = ({ close, e, conditionallyScroll }: HandleCloseOptions) => {
         leave-to-class="transform scale-95 opacity-0"
       >
         <HeadlessDisclosurePanel
-          class="cursor-default space-y-2 pl-4 pb-3 sm:pb-5"
+          class="cursor-default space-y-2 pb-3 pl-4 sm:pb-5"
           :class="[nestLevel > 1 ? '' : '']"
         >
           <div

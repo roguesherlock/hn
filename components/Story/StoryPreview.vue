@@ -27,7 +27,7 @@ const {
   queryFn: async () => {
     try {
       const response = await fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${props.id}.json`
+        `https://hacker-news.firebaseio.com/v0/item/${props.id}.json`,
       )
       return (await response.json()) as HNItem<"story">
     } catch (e) {
